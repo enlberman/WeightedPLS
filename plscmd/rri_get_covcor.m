@@ -46,14 +46,15 @@ function [datamatsvd, datamatsvd_unnorm, datamatcorrs_lst, stacked_smeanmat] = .
 		behavdata_reorder, datamat_reorder_4beh,varargin)
 
    if ~isempty(varargin)
-       if length(varargin)>1
+       if length(varargin)==4
            weights =varargin{2};
+           doCCA = varargin{4};
        else
-            weights = varargin{:};
+            doCCA = varargin{2};
        end
    end
    
-   if ~exist('datamat_reorder_4beh','var')
+   if isnan(datamat_reorder_4beh)
       datamat_reorder_4beh = [1:size(stacked_datamat,1)]';
    end
 
@@ -280,9 +281,9 @@ function [datamatsvd, datamatsvd_unnorm, datamatcorrs_lst, stacked_smeanmat] = .
             end
          case {3, 5}
             if exist('weights','var')
-                datamatcorrs = rri_corr_maps(behavdata, datamat, n, k, cormode,'weights_dat',weights_dat,'weights_beh',weights_beh);
+                datamatcorrs = rri_corr_maps(behavdata, datamat, n, k, cormode, doCCA,'weights_dat',weights_dat,'weights_beh',weights_beh);
             else
-                datamatcorrs = rri_corr_maps(behavdata, datamat, n, k, cormode);
+                datamatcorrs = rri_corr_maps(behavdata, datamat, n, k, cormode, doCCA);
             end
             datamatcorrs_lst = [datamatcorrs_lst, {datamatcorrs}];
             TBdatamatcorrs = [];

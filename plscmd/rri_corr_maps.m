@@ -1,4 +1,4 @@
-function maps=rri_corr_maps(behav,datamat,n,k,cormode,varargin);
+function maps=rri_corr_maps(behav,datamat,n,k,cormode, doCCA, varargin);
 
 % creates image-wide correlation map for k scans with behavior vector , or
 % whatever is in the behav variable (eg. seed voxel)
@@ -16,9 +16,9 @@ maps=[];
 	for i=1:k
 		temp=[];
         if exist('weights_dat','var')
-            temp=rri_xcor((behav(1+(n* (i-1) ):n*i,:)),(datamat(1+(n*(i-1)):n*i,:)),cormode,'weights_dat',weights_dat(1+(n*(i-1)):n*i),'weights_beh',weights_beh(1+(n*(i-1)):n*i));
+            temp=rri_xcor((behav(1+(n* (i-1) ):n*i,:)),(datamat(1+(n*(i-1)):n*i,:)),cormode, doCCA, 'weights_dat',weights_dat(1+(n*(i-1)):n*i),'weights_beh',weights_beh(1+(n*(i-1)):n*i));
         else
-            temp=rri_xcor((behav(1+(n* (i-1) ):n*i,:)),(datamat(1+(n*(i-1)):n*i,:)),cormode);
+            temp=rri_xcor((behav(1+(n* (i-1) ):n*i,:)),(datamat(1+(n*(i-1)):n*i,:)),cormode, doCCA);
         end
 
 		maps=[maps;temp];

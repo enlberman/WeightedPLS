@@ -25,7 +25,7 @@
 
 function [scores, fscores, lvcorrs] = ...
 	rri_get_behavscores(stacked_datamat, stacked_behavdata, ...
-	brainlv, behavlv, k, num_subj_lst, cormode)
+	brainlv, behavlv, k, num_subj_lst, cormode, doCCA)
 
     scores = stacked_datamat * brainlv;
     fscores = [];
@@ -50,7 +50,7 @@ function [scores, fscores, lvcorrs] = ...
 	fscores = [fscores; tmp];
 
 	tmp = rri_corr_maps(stacked_behavdata(1 + span : n*k + span, :), ...
-				scores(1 + span : n*k + span, :), n, k, cormode);
+				scores(1 + span : n*k + span, :), n, k, cormode, doCCA);
 	lvcorrs = [lvcorrs; tmp];
 
     end
